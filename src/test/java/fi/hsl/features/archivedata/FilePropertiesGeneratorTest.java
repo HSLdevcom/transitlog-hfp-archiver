@@ -1,6 +1,6 @@
-package fi.hsl.archivedata;
+package fi.hsl.features.archivedata;
 
-import fi.hsl.common.filename.FileNameGenerator;
+import fi.hsl.common.FileNameGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
 
-class FileNameGeneratorTest {
+class FilePropertiesGeneratorTest {
 
     private static final String yyyy_MM_dd_dot_csv = "\\S*-\\d+-\\d{2}-\\d{2}\\.csv";
     private FileNameGenerator fileNameGenerator;

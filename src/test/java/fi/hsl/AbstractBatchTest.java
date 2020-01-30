@@ -2,7 +2,7 @@ package fi.hsl;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import fi.hsl.common.filename.FileNameGenerator;
+import fi.hsl.common.FileNameGenerator;
 import fi.hsl.domain.Event;
 import org.springframework.beans.factory.annotation.Value;
 

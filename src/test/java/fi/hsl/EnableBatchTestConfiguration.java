@@ -1,14 +1,15 @@
 package fi.hsl;
 
 import com.zaxxer.hikari.HikariDataSource;
+import fi.hsl.common.BlobStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import uk.co.jemos.podam.api.AttributeMetadata;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -22,6 +23,8 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Properties;
 
+import static org.mockito.Mockito.mock;
+
 @Configuration
 @org.springframework.data.jpa.repository.config.EnableJpaRepositories(
         basePackages = "fi.hsl.domain",
@@ -32,6 +35,12 @@ public class EnableBatchTestConfiguration {
     @Autowired
     private Environment env;
 
+
+    @Bean
+    @Primary
+    public BlobStorage blobStorage() {
+        return mock(BlobStorage.class);
+    }
 
     @Bean
     public PodamFactory testPodamFactory() {

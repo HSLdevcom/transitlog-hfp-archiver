@@ -1,4 +1,4 @@
-package fi.hsl.archivedata;
+package fi.hsl.features.archivedata;
 
 import fi.hsl.domain.*;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,7 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.retry.policy.AlwaysRetryPolicy;
@@ -43,12 +44,15 @@ public class ArchiveScheduledDump {
 
     @Bean
     Job archiveOldEventsJob() {
+        ReadersAndWriters.Writer<String> writer = readersAndWriters.fileWriter();
         return jobBuilderFactory.get("archiveOldEventsJob")
                 .incrementer(new RunIdIncrementer())
-                .flow(transformIntoCSV()) .end() .build();
+                .flow(transformIntoCSV(writer.getFileWriter()))
+                .next(uploadToStorage(writer.getFilePath()))
+                .end().build();
     }
 
-    private Step transformIntoCSV() {
+    private Step transformIntoCSV(ItemWriter<? super String> fileWriter) {
         return stepBuilderFactory
                 .get("transformIntoCSVStep")
                 .<Event, String>chunk(1000)
@@ -56,7 +60,14 @@ public class ArchiveScheduledDump {
                 .faultTolerant()
                 .retryPolicy(new AlwaysRetryPolicy())
                 .processor(readersAndWriters.csvProcessor())
-                .writer(readersAndWriters.fileWriter())
+                .writer(fileWriter)
+                .build();
+    }
+
+    private Step uploadToStorage(String filePath) {
+        return stepBuilderFactory
+                .get("uploadToStroage")
+                .tasklet(readersAndWriters.storageUpload(filePath))
                 .build();
     }
 
