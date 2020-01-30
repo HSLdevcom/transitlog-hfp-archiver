@@ -1,6 +1,6 @@
 # transitlog-hfp-archiver
 
-[![Build Status](https://travis-ci.org/HSLdevcom/transitlog-hfp-archiver.svg?branch=master)](https://travis-ci.org/HSLdevcom/transitlog-hfp-archiver)
+[![Build Status](https://travis-ci.com/HSLdevcom/transitlog-hfp-archiver.svg?branch=master)](https://travis-ci.com/HSLdevcom/transitlog-hfp-archiver)
 
 ## Description
 
