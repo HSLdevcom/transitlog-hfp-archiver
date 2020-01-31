@@ -28,7 +28,7 @@ import javax.persistence.EntityManagerFactory;
 import static fi.hsl.common.FileNameGenerator.TypedFilenameGenerator;
 
 @Component
-class ReadersAndWriters {
+class BatchReadersAndWriters {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
     @Autowired
@@ -51,7 +51,7 @@ class ReadersAndWriters {
         return new CSVMapper();
     }
 
-    <T> Writer<T> fileWriter() {
+    public <T> Writer<T> fileWriter() {
         FileNameGenerator fileNameGenerator = new TypedFilenameGenerator(csvFilename);
         String filepath = fileNameGenerator.generateCSVFileName();
         DelimitedLineAggregator<T> commaSeparatedLineAggregator = new DelimitedLineAggregator<>() {{

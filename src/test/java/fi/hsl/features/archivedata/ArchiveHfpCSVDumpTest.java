@@ -29,9 +29,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 
 @SpringBatchTest
-@SpringBootTest(classes = {ArchiveScheduledDump.class, EnableBatchProcessing.class, ReadersAndWriters.class, EnableBatchTestConfiguration.class, BatchAutoConfiguration.class})
+@SpringBootTest(classes = {ArchiveHfpCSVDump.class, EnableBatchProcessing.class, BatchReadersAndWriters.class, EnableBatchTestConfiguration.class, BatchAutoConfiguration.class})
 @TestPropertySource(locations = "classpath:/application.properties")
-public class ArchiveScheduledDumpTest extends AbstractBatchTest {
+public class ArchiveHfpCSVDumpTest extends AbstractBatchTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;

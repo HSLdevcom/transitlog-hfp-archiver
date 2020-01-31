@@ -25,12 +25,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @SpringBatchTest
-@SpringBootTest(classes = {EnableBatchProcessing.class, ReadersAndWriters.class, EnableBatchTestConfiguration.class, BatchAutoConfiguration.class, AllowScheduling.class, ArchiveScheduledDump.class})
+@SpringBootTest(classes = {EnableBatchProcessing.class, BatchReadersAndWriters.class, EnableBatchTestConfiguration.class, BatchAutoConfiguration.class, AllowScheduling.class, ArchiveHfpCSVDump.class})
 @TestPropertySource(locations = "classpath:/application.properties")
 class ScheduledArchiveDumpTest extends AbstractBatchTest {
 
     @Autowired
-    private ArchiveScheduledDump archiveScheduledDump;
+    private ArchiveHfpCSVDump archiveHfpCSVDump;
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
